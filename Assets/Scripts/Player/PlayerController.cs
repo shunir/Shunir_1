@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         Vector3 move = new Vector3(moveX, moveY, 0).normalized;
         basePosition += move * moveSpeed * Time.deltaTime;
 
-        transform.position = basePosition;
+
 
         bool isMoving = (moveX != 0 || moveY != 0);
         animator.SetBool("IsMove", isMoving); // <- Animator에 "IsMove" bool 타입 있어야 함
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = false;
 
 
-        transform.position = basePosition + new Vector3(0, jumpHeight, 0);
+        rb.velocity = new Vector2(basePosition.x, basePosition.y);
 
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
