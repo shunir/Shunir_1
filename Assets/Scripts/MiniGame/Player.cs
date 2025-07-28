@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Player : MonoBehaviour
 {
@@ -50,7 +51,7 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    gameManager.RestartGame();
+                    
                 }
 
             }
@@ -98,7 +99,7 @@ public class Player : MonoBehaviour
         isDead = true;
         deathCooldown = 1f;
 
-        gameManager.GameOver();
+        GameManager.Instance.GameOver();
     }
 
 
@@ -121,6 +122,8 @@ public class Player : MonoBehaviour
         transform.position = Vector3.zero; // 시작 위치로 리셋
         transform.rotation = Quaternion.identity;
         _rigidbody.velocity = Vector2.zero;
+        _rigidbody.isKinematic = false; // 다시 물리 작동
+        _rigidbody.freezeRotation = false; // 회전 제한 해제
 
         animator.SetInteger("IsDie", 0); // 애니메이션 상태도 초기화
     }

@@ -5,8 +5,16 @@ public class MiniGameManager : MonoBehaviour
 {
     public void EndMiniGame()
     {
-        ScoreManager.Save(); //점수 저장
-        SceneManager.LoadScene("FlappyPlane_Project"); // 메인 씬으로 이동
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            Debug.LogError("GameManager.Instance가 null입니다. 게임 종료 로직을 실행할 수 없습니다.");
+            SceneManager.LoadScene("FlappyPlane_Project");
+        }
     }
 }
 

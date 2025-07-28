@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     static GameManager gameManager;
     UIManager uiManager;
 
-    public int currentScore = 0;
+    
+    public static int finalScore;
 
     public UIManager UIManager
     {
@@ -24,7 +25,8 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private int currentSeore = 0;
+    public int currentScore { get; private set; } = 0; 
+    
 
     private void Awake()
     {
@@ -39,27 +41,34 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("Game Over");
-        uiManager.SetRestart();
+
+        MINIGameData.GameData.LastScore = currentScore;
+        finalScore = currentScore;
+
+        Debug.Log("Game Over. Final Score: " + currentScore);
+
 
         Player player = FindObjectOfType<Player>();
         if (player != null) { player.StopPlayer(); }
 
         PlayerPrefs.SetInt("LastScore", currentScore);
         SceneManager.LoadScene("MainScene");
+
+
+
     }
 
-
-    public void RestartGame()
+    public void AddScore(int scoreToAdd)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        currentScore += scoreToAdd;
+        if (uiManager != null)
+        {
+            uiManager.UpdateScore(currentScore);
+        }
+        Debug.Log("Score: " + currentScore);
     }
 
-    public void AddScore(int score)
-    {
-        currentSeore += score;
-        uiManager.UpdateScore(currentSeore);
-        Debug.Log("Score: " + currentSeore);
-    }
+
+   
 
 }

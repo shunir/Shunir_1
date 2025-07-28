@@ -43394,7 +43394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 5952613449176461940, guid: b62e3e09ad87c0d40b011742ac9c50d8, type: 3}
-  spawnPoint: {fileID: 0}
+  spawnPoint: {fileID: 571468309}
 --- !u!4 &2125742072
 Transform:
   m_ObjectHideFlags: 0
