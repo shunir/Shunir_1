@@ -2,33 +2,29 @@ using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    public GameObject prefab;       
-    public Transform spawnPoint;    
+    public GameObject prefab;         
+    public Vector2 spawnAreaMin;     
+    public Vector2 spawnAreaMax;
 
     void Start()
     {
-       
-        Spawn();
+
+        SpawnRandomInArea();
     }
 
-    
-    public void Spawn()
+
+    public void SpawnRandomInArea()
     {
-       
-        if (prefab != null)
+        if (prefab == null)
         {
-            
-            Vector3 finalSpawnPosition = (spawnPoint != null) ? spawnPoint.position : transform.position;
-
-          
-            GameObject spawnedObject = Instantiate(prefab, finalSpawnPosition, Quaternion.identity);
-            Debug.Log($"미니게임 상호작용 오브젝트 생성됨: {spawnedObject.name} at {finalSpawnPosition}");
-
-            
+            return;
         }
-        else
-        {
-            Debug.LogError("ObjectSpawner: 생성할 프리팹(prefab)이 연결되지 않았습니다!");
-        }
+
+        float randomX = Random.Range(spawnAreaMin.x, spawnAreaMax.x);
+        float randomY = Random.Range(spawnAreaMin.y, spawnAreaMax.y);
+        Vector3 finalSpawnPosition = new Vector3(randomX, randomY, 0f);
+
+        GameObject spawnedObject = Instantiate(prefab, finalSpawnPosition, Quaternion.identity);
+        Debug.Log($"미니게임 오브젝트 생성: {spawnedObject.name} at {finalSpawnPosition}");
     }
 }
