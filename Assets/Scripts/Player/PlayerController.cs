@@ -65,23 +65,26 @@ public class PlayerController : MonoBehaviour
             }
 
 
-        } }
+        }
+    }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-       
-        if (collision.gameObject.CompareTag("Wall"))
+        // 벽에 닿았을 때 벽 뚫림 방지
+        if (collision.gameObject.CompareTag("Wall")) // "Wall" 태그를 가진 오브젝트와 충돌 시
         {
             Debug.Log("벽에 부딪혔습니다. 더 이상 뚫고 나가지 않습니다.");
         }
-        
+
+        // 어떤 콜라이더와든 충돌하면 점프 상태 해제 (땅에 닿았다고 가정)
         isJumping = false;
     }
 
 
 
 
-    }
+
+}
 
 
 
