@@ -1273,7 +1273,7 @@ GameObject:
   - component: {fileID: 1323252502}
   - component: {fileID: 1323252501}
   - component: {fileID: 1323252503}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collision
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -43745,7 +43745,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &2060215626
 BoxCollider2D:

@@ -6,20 +6,21 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     public float gravity = 20f;
 
+    private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
     private float jumpVelocity = 0f;
     private float jumpHeight = 0f;
     private bool isJumping = false;
 
     private Vector3 basePosition;
-    private SpriteRenderer spriteRenderer;
-
-    Animator animator;
 
     void Start()
     {
-        basePosition = transform.position;
-        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -71,12 +72,20 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 벽에 닿았을 때 벽 뚫림 방지
-        if (collision.gameObject.CompareTag("Wall")) // "Wall" 태그를 가진 오브젝트와 충돌 시
+        if (collision.gameObject.CompareTag("Wall"))
         {
             Debug.Log("벽에 부딪혔습니다. 더 이상 뚫고 나가지 않습니다.");
+
+            Vector2 contactPoint = collision.GetContact(0).point; 
+            Vector2 normal = collision.GetContact(0).normal;
+
+            Vector2 overlapVector = (Vector2)rb.position - contactPoint;
+            float overlapMagnitude = overlapVector.magnitude;
+
+            rb.position += normal * (overlapMagnitude + 0.01f);
         }
 
-        // 어떤 콜라이더와든 충돌하면 점프 상태 해제 (땅에 닿았다고 가정)
+        
         isJumping = false;
     }
 
