@@ -10,11 +10,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - minigame
   - Water
   - UI
+  - player
   - 
-  - minigame
   - 
   - 
   - 
