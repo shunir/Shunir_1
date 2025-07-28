@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
 
     private Vector3 basePosition;
+    private SpriteRenderer spriteRenderer;
 
     Animator animator;
 
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         basePosition = transform.position;
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -26,19 +28,31 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("MoveX", moveX);
-        animator.SetFloat("MoveY", moveY);
 
         Vector3 move = new Vector3(moveX, moveY, 0).normalized;
         basePosition += move * moveSpeed * Time.deltaTime;
 
-        // 점프
+        transform.position = basePosition;
+
+        bool isMoving = (moveX != 0 || moveY != 0);
+        animator.SetBool("IsMove", isMoving); // <- Animator에 "IsMove" bool 타입 있어야 함
+
+        // Sprite 좌우 반전 (오른쪽일 때 false, 왼쪽일 때 true)
+        if (moveX < 0)
+            spriteRenderer.flipX = true;
+        else if (moveX > 0)
+            spriteRenderer.flipX = false;
+
+
+
+
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
             isJumping = true;
             jumpVelocity = jumpForce;
         }
 
+        // 점프 물리 처리
         if (isJumping)
         {
             jumpHeight += jumpVelocity * Time.deltaTime;
@@ -52,8 +66,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
+
+
         transform.position = basePosition + new Vector3(0, jumpHeight, 0);
+
     }
+
+
 
 
 }
