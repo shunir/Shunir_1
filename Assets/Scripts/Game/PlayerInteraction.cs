@@ -8,7 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     // Mini Game 오브젝트와 충돌 시
     private void OnTriggerEnter2D(Collider2D other) // 3D인 경우 OnTriggerEnter로 변경
     {
-        if (other.CompareTag("FlappyBirdScene"))
+        if (other.CompareTag("minigame"))
         {
             canInteract = true;
             Debug.Log("미니게임 오브젝트 근처에 있습니다. F키를 눌러 상호작용하세요.");
@@ -18,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
     // Mini Game 오브젝트에서 벗어날 시
     private void OnTriggerExit2D(Collider2D other) // 3D인 경우 OnTriggerExit로 변경
     {
-        if (other.CompareTag("FlappyBirdScene"))
+        if (other.CompareTag("minigam"))
         {
             canInteract = false;
             Debug.Log("미니게임 오브젝트에서 벗어났습니다.");
@@ -31,7 +31,7 @@ public class PlayerInteraction : MonoBehaviour
         if (canInteract && Input.GetKeyDown(KeyCode.F))
         {
             Debug.Log("F키 입력 감지! 플로피버드 씬으로 이동합니다.");
-            SceneManager.LoadScene("FlappyBirdScene"); // 플로피버드 씬 이름으로 변경
+            SceneManager.LoadScene("FlappyPlane_Project"); // 플로피버드 씬 이름으로 변경
         }
     }
 }
