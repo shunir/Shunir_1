@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = false;
 
 
-
+        transform.position = basePosition + new Vector3(0, jumpHeight, 0);
 
         if (Input.GetKeyDown(KeyCode.Space) && !isJumping)
         {
@@ -63,16 +63,26 @@ public class PlayerController : MonoBehaviour
                 jumpHeight = 0f;
                 isJumping = false;
             }
+
+
+        } }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+    {
+       
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("벽에 부딪혔습니다. 더 이상 뚫고 나가지 않습니다.");
         }
+        
+        isJumping = false;
+    }
 
 
 
-
-        transform.position = basePosition + new Vector3(0, jumpHeight, 0);
 
     }
 
 
 
 
-}
